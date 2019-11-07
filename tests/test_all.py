@@ -8,34 +8,34 @@
 # $$    $$/ $$   $$   $$/ $$       |$$ |  $$ |      $$       |$$    $$/ 
 #  $$$$$$/   $$$$$/$$$$/   $$$$$$$/ $$/   $$/       $$$$$$$$/  $$$$$$/ 
 # 
-# @Time : 2019/11/7 15:36 
+# @Time : 2019/11/7 22:31 
 # @Author : Lu Ning 
-# @File : engine
+# @File : test_all.py
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
-from typing import List
-from typing import Tuple
 
+import pytest
 import numpy as np
 
-from .base import EngineBase
+from ocr_e2e_infer.base import EngineBase
+from ocr_e2e_infer.preprocessor import SimplePreProcessor
 
 
-class OCRE2ESystemBase(EngineBase):
-    """
-    This is an OCR end to end inferencer
-    """
+class TestAll:
 
-    def __init__(self,
-                 detector,
-                 recognizer,
-                 config,
-                 conditioner=None,
-                 preprocessor=None,
-                 postprocessor=None,
-                 *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def test_logger(self):
+        class1 = EngineBase()
+        class2 = EngineBase()
 
-    def infer(self):
-        pass
+        class1.logger.info('class1')
+        class2.logger.info('class2')
+        class1.logger.debug('debug')
+        class1.logger.error('error')
+        class2.logger.warn('warning')
 
+        assert id(class1.logger) == id(class2.logger)
+
+    def test_preprocessor(self):
+        simple = SimplePreProcessor()
+        image = np.random.randn(3,3,3)
+        np.testing.assert_array_equal(image, simple.do(image))
