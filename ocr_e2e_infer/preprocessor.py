@@ -13,21 +13,26 @@
 # @File : preprocessor.py
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
-import numpy
+from typing import List, Dict
+
+import numpy as np
 
 from .base import EngineBase
 
 
 class PreProcessorBase(EngineBase):
+    '''
+    do some pre-processing here, such as rotate, scale and other image transformations.
+    '''
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, image:numpy.ndarray) -> numpy.ndarray:
+    def do(self, images:List[Dict]) -> List[Dict]:
         '''
 
         Args:
-            image: image needs to preprocessed
+            image: image needs to preprocessed N*H*W*C
 
         Returns:
             image (numpy.ndarray) preprocessed image
@@ -36,13 +41,12 @@ class PreProcessorBase(EngineBase):
 
         raise NotImplementedError
 
-
 class SimplePreProcessor(PreProcessorBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, image:numpy.ndarray) -> numpy.ndarray:
+    def do(self, images:List[Dict]) -> List[Dict]:
         '''
 
         Args:
@@ -52,4 +56,4 @@ class SimplePreProcessor(PreProcessorBase):
 
         '''
         self.logger.info("Simple PreProcessor.")
-        return image
+        return images

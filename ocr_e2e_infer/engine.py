@@ -13,8 +13,7 @@
 # @File : engine
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
-from typing import List
-from typing import Tuple
+from typing import List, Dict
 
 import numpy as np
 
@@ -36,6 +35,25 @@ class OCRE2ESystemBase(EngineBase):
                  *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def infer(self):
+        self.detector = detector
+        self.recognizer = recognizer
+        self.config = config
+        self.conditioner = conditioner
+        self.preprocessor = preprocessor
+        self.postprocessor = postprocessor
+
+    def do(self, images:List[np.ndarray]) -> List[Dict]:
+        '''
+
+        Args:
+            images:
+
+        Returns:
+
+        '''
+        results = [ {'image': image, 'valid':True} for image in images ]
+
+
+
         pass
 
