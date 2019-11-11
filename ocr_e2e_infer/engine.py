@@ -13,9 +13,10 @@
 # @File : engine
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
-from typing import List, Dict
+from typing import List, Dict, Any
 
 import numpy as np
+from nptyping import Array
 
 from .base import EngineBase
 
@@ -42,18 +43,16 @@ class OCRE2ESystemBase(EngineBase):
         self.preprocessor = preprocessor
         self.postprocessor = postprocessor
 
-    def do(self, images:List[np.ndarray]) -> List[Dict]:
-        '''
+    def do(self, images: List[Array[int, ...]]) -> List[Dict[str, Any]]:
+        """
 
         Args:
-            images:
+            images (List[Array[int, ...]]): list of images,
 
         Returns:
+            results (List[Dict[str, Any]): structurized output,
+            len(images) == len(reuslts)
 
-        '''
-        results = [ {'image': image, 'valid':True} for image in images ]
-
-
-
-        pass
+        """
+        raise NotImplementedError
 

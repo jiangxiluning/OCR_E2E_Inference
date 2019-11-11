@@ -13,7 +13,11 @@
 # @File : recognizer
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
-from typing import List, Dict
+from typing import List, Tuple
+
+import numpy as np
+from nptyping import Array
+
 
 from .base import EngineBase
 
@@ -23,16 +27,18 @@ class RecoginizerBase(EngineBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images:List[Dict]) -> List[Dict]:
-        '''
-
+    def do(self, images: Array[int, ...],
+           mask: Array[bool, ...],
+           boxes: List[Array[float, ..., 9]]) -> List[List[Tuple[str, float]]]:
+        """
+        Recognize text from text regions
         Args:
-            images: {'image': ndarray, 'valid':True, 'det': [x1,y1,x2,y2, ...,x4,y4]}
+            boxes (List[np.ndarray]): list of boxex with confidence
+            images: image needs to preprocessed N*H*W*C
+            mask: image mask, shape: (N,)
 
         Returns:
-            {'image': ndarray, 'valid':True,
-            'det': [[x1,y1,x2,y2, ...,x4,y4], ],
-            'reg': ['text', 'text',..., '']}
-
-        '''
+            transcripts (List[List[str]]): transcript and confidence
+            corresponding to each region of each image
+        """
         raise NotImplementedError

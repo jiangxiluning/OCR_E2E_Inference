@@ -14,6 +14,8 @@
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
 from typing import List, Dict
+from nptyping import Array
+from numpy import np
 
 from .base import EngineBase
 
@@ -23,14 +25,15 @@ class DetectorBase(EngineBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images:List[Dict]) -> List[Dict]:
-        '''
-
+    def do(self, images: Array[int, ...], mask: Array[bool, ...]) -> \
+            List[np.ndarray]:
+        """
+        Detect chars, words or text lines
         Args:
-            images: {'image': ndarray, 'valid':True}
+            images: image needs to preprocessed N*H*W*C
+            mask: image mask, shape: (N,)
 
         Returns:
-            {'image': ndarray, 'valid':True, 'reg': [x1,y1,x2,y2, ...,x4,y4]}
-
-        '''
+            boxes (List[np.ndarray]): list of boxex with confidence
+        """
         raise NotImplementedError

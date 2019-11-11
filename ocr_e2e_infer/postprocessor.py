@@ -13,7 +13,10 @@
 # @File : postprocessor.py
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
-from typing import List, Dict
+from typing import List, Dict, Tuple, Any
+
+from nptyping import Array
+import numpy as np
 
 from .base import EngineBase
 
@@ -23,23 +26,21 @@ class PostProcessorBase(EngineBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images:List[Dict]) -> List[Dict]:
-        '''
-        structurize images into keywords outputs and do some refinement work
+    def do(self, images: Array[int, ...],
+           mask: Array[bool, ...],
+           boxes: List[Array[float, ..., 9]],
+           transcripts: List[List[Tuple[str, float]]]) -> List[Dict[str, Any]]:
+        """
+        structurize images into keywords outputs and refine the results
+        according to some rules
         Args:
-            images: images with recognition results
-            {'image': ndarray, 'valid':True,
-            'det': [[x1,y1,x2,y2, ...,x4,y4], ],
-            'reg': ['text', 'text',..., '']}
+            transcripts (List[List[str]]): transcript anc confidence
+            corresponding to each region of each image
+            boxes (List[np.ndarray]): list of boxex with confidence
+            images: image needs to preprocessed N*H*W*C
+            mask: image mask, shape: (N,)
 
         Returns:
-            {'image': ndarray, 'valid':True,
-            'det': [[x1,y1,x2,y2, ...,x4,y4], ],
-            'reg': ['text', 'text',..., '',
-            'keywords:':
-            {
-                'xxx': 'xxx',
-                ...
-            }]}
-        '''
+            results (List[Dict[str, Any]): structurized output
+        """
         raise NotImplementedError

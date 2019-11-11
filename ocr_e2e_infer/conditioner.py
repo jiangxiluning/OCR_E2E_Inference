@@ -16,29 +16,41 @@
 from typing import List, Dict
 
 import numpy as np
+from nptyping import Array
 
 from .base import EngineBase
 
 
 class ConditionerBase(EngineBase):
     def __init__(self, *args, **kwargs):
-        '''
+        """
         filter some images based on some conditions, e.g. quality filtering,
         and set images to invalid
 
         Args:
             *args:
             **kwargs:
-        '''
+        """
         super().__init__(*args, **kwargs)
 
-    def do(self, images:List[Dict]) -> List[Dict]:
+    def do(self, images: Array[int, ...]) -> np.ndarray:
+        """
+
+        Args:
+            images: numpy ndarray of images, N * H * W * C
+
+        Returns:
+            mask (np.ndarray): masked result, ndarray of N np.bool
+
+        """
         raise NotImplementedError
+
 
 class SimpleConditioner(ConditionerBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images:List[Dict]) -> List[Dict]:
-        return images
+    def do(self, images: Array[int, ...]) -> np.ndarray:
+        self.logger.info('Simple Conditioner')
+        return np.array(np.ones(images.shape[0]), dtype = bool)
