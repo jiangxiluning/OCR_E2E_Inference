@@ -37,7 +37,7 @@ class ConditionerBase(EngineBase):
         """
 
         Args:
-            images: numpy ndarray of images, N * H * W * C
+            images (Array[int, ...]): numpy ndarray of images, N * H * W * C
 
         Returns:
             mask (np.ndarray): masked result, ndarray of N np.bool
@@ -52,5 +52,14 @@ class SimpleConditioner(ConditionerBase):
         super().__init__(*args, **kwargs)
 
     def do(self, images: Array[int, ...]) -> np.ndarray:
+        """
+
+        Args:
+            images (Array[int, ...]): numpy ndarray of images, N * H * W * C
+
+        Returns:
+            mask (np.ndarray): masked result, ndarray of N np.bool
+
+        """
         self.logger.info('Simple Conditioner')
         return np.array(np.ones(images.shape[0]), dtype = bool)

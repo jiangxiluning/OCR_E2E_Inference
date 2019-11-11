@@ -34,13 +34,14 @@ class PreProcessorBase(EngineBase):
             -> Tuple[np.ndarray, np.ndarray]:
         """
 
+
         Args:
-            images: image needs to preprocessed N*H*W*C
-            mask: image mask, shape: (N,)
+            images (Array[int, ...]): image needs to preprocessed N*H*W*C
+            mask (Array[bool, ...]): image mask, shape: (N,)
 
         Returns:
-            images (np.ndarray): preprocessed image, shape: (N, H, W, C)
-            mask (np.ndarray): image mask, shape: (N,)
+            images tuple (Tuple[np.ndarray, np.ndarray]): preprocessed image, shape: (N, H, W, C), image mask, shape: (N,)
+
         """
 
         raise NotImplementedError
@@ -55,13 +56,13 @@ class SimplePreProcessor(PreProcessorBase):
             -> Tuple[np.ndarray, np.ndarray]:
         """
         Simple Preprocessor that return same images and mask
+
         Args:
-            images: image needs to preprocessed N*H*W*C
-            mask: image mask, shape: (N,)
+            images (Array[int, ...]): image needs to preprocessed N*H*W*C
+            mask (Array[bool, ...]): image mask, shape: (N,)
 
         Returns:
-            images (np.ndarray): preprocessed image, shape: (N, H, W, C)
-            mask (np.ndarray): image mask, shape: (N,)
+            images tuple (Tuple[np.ndarray, np.ndarray]): preprocessed image, shape: (N, H, W, C), image mask, shape: (N,)
 
         """
         self.logger.info("Simple PreProcessor.")

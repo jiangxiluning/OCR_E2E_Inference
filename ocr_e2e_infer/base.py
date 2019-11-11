@@ -30,9 +30,9 @@ class EngineBase(object):
         Get default logger and use default configurations to setup it.
 
         Args:
-            logger_name: logger's name
+            logger_name (str): logger's name
         Returns:
-            logging.Logger
+            logger (logging.Logger): logger
         """
         logger = logging.getLogger(logger_name)
         logger.setLevel(logging.DEBUG)

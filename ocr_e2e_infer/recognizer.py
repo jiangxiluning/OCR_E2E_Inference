@@ -32,13 +32,13 @@ class RecoginizerBase(EngineBase):
            boxes: List[Array[float, ..., 9]]) -> List[List[Tuple[str, float]]]:
         """
         Recognize text from text regions
+
         Args:
             boxes (List[np.ndarray]): list of boxex with confidence
-            images: image needs to preprocessed N*H*W*C
-            mask: image mask, shape: (N,)
+            images (Array[int, ...]): image needs to preprocessed N*H*W*C
+            mask (Array[bool, ...]): image mask, shape: (N,)
 
         Returns:
-            transcripts (List[List[str]]): transcript and confidence
-            corresponding to each region of each image
+            transcripts (List[List[str]]): transcript and confidence corresponding to each region of each image
         """
         raise NotImplementedError

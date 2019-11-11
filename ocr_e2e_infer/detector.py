@@ -29,9 +29,10 @@ class DetectorBase(EngineBase):
             List[np.ndarray]:
         """
         Detect chars, words or text lines
+
         Args:
-            images: image needs to preprocessed N*H*W*C
-            mask: image mask, shape: (N,)
+            images (Array[int, ...]): image needs to preprocessed N*H*W*C
+            mask (Array[bool, ...]): image mask, shape: (N,)
 
         Returns:
             boxes (List[np.ndarray]): list of boxex with confidence

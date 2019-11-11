@@ -33,12 +33,12 @@ class PostProcessorBase(EngineBase):
         """
         structurize images into keywords outputs and refine the results
         according to some rules
+
         Args:
-            transcripts (List[List[str]]): transcript anc confidence
-            corresponding to each region of each image
+            transcripts (List[List[str]]): transcript anc confidence corresponding to each region of each image
             boxes (List[np.ndarray]): list of boxex with confidence
-            images: image needs to preprocessed N*H*W*C
-            mask: image mask, shape: (N,)
+            images (Array[int, ...]): image needs to preprocessed N*H*W*C
+            mask (Array[bool, ...]): image mask, shape: (N,)
 
         Returns:
             results (List[Dict[str, Any]): structurized output
