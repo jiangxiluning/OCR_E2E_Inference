@@ -10,5 +10,4 @@ Welcome to OCR End to End Inference Framework's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-.. automodule:: ocr_e2e_infer
-   :members:
+   ocr_e2e_infer

@@ -13,7 +13,8 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
-import ocr_e2e_infer
+sys.path.insert(0, '/Users/luning/.virtualenvs/OCR_E2E_Inference/lib/python3.7/site-packages')
+
 
 # -- Project information -----------------------------------------------------
 
@@ -40,7 +41,7 @@ templates_path = ['_templates']
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = 'zh_CN'
+language = ''
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -58,4 +59,9 @@ html_theme = 'alabaster'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# html_static_path = ['build/html/_static/']
+
+
+# autodoc
+autodoc_mock_imports = ['numpy']
+autodoc_typehints = 'none'
