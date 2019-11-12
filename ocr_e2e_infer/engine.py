@@ -19,22 +19,33 @@ import numpy as np
 from nptyping import Array
 
 from .base import EngineBase
+from .detector import DetectorBase
+from .conditioner import ConditionerBase
+from .preprocessor import PreProcessorBase
+from .postprocessor import PostProcessorBase
+from .recognizer import RecoginizerBase
 
 
 class OCRE2ESystemBase(EngineBase):
     """
-    This is an OCR end to end inferencer
+    This is an OCR end to end inferencer framework
     """
 
     def __init__(self,
-                 detector,
-                 recognizer,
+                 detector: DetectorBase,
+                 recognizer: RecoginizerBase,
                  config,
-                 conditioner=None,
-                 preprocessor=None,
-                 postprocessor=None,
+                 conditioner: ConditionerBase = None,
+                 preprocessor: PreProcessorBase = None,
+                 postprocessor: PostProcessorBase = None,
                  *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        assert isinstance(detector, DetectorBase)
+        assert isinstance(recognizer, RecoginizerBase)
+        assert isinstance(conditioner, ConditionerBase)
+        assert isinstance(preprocessor, PreProcessorBase)
+        assert isinstance(postprocessor, PostProcessorBase)
 
         self.detector = detector
         self.recognizer = recognizer
@@ -54,5 +65,15 @@ class OCRE2ESystemBase(EngineBase):
             len(images) == len(reuslts)
 
         """
+
+        images = np.concatenate(images)
+        self.logger.debug("Image's shape: {} {} {} {}".format(images.shape[0],
+                                                              images.shape[1],
+                                                              images.shape[2],
+                                                              images.shape[3]))
+
+
+        #images, mask = self.conditioner.do()
+
         raise NotImplementedError
 
