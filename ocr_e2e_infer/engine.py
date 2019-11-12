@@ -13,7 +13,8 @@
 # @File : engine
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
-from typing import List, Dict, Any
+from typing import List, Dict, Any, NoReturn
+from multiprocessing import Process
 
 import numpy as np
 from nptyping import Array
@@ -76,4 +77,14 @@ class OCRE2ESystemBase(EngineBase):
         #images, mask = self.conditioner.do()
 
         raise NotImplementedError
+
+    def run_detector(self) -> Process:
+        """
+
+
+        Returns:
+
+        """
+
+        p = Process(self.detector.do())
 
