@@ -16,7 +16,6 @@
 from typing import List, Dict
 
 import numpy as np
-from nptyping import Array
 
 from .base import EngineBase
 
@@ -33,14 +32,14 @@ class ConditionerBase(EngineBase):
         """
         super().__init__(*args, **kwargs)
 
-    def do(self, images: Array[int, ...]) -> np.ndarray:
+    def do(self, images: np.ndarray) -> np.ndarray:
         """
 
         Args:
-            images (Array[int, ...]): numpy ndarray of images, N * H * W * C
+            images (np.ndarray): numpy ndarray of images, N * H * W * C
 
         Returns:
-            mask (np.ndarray): masked result, ndarray of N np.bool
+            ret_code (np.ndarray): return code
 
         """
         raise NotImplementedError
@@ -51,15 +50,15 @@ class SimpleConditioner(ConditionerBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images: Array[int, ...]) -> np.ndarray:
+    def do(self, images: np.ndarray) -> np.ndarray:
         """
 
         Args:
-            images (Array[int, ...]): numpy ndarray of images, N * H * W * C
+            images (np.ndarray): numpy ndarray of images, N * H * W * C
 
         Returns:
-            mask (np.ndarray): masked result, ndarray of N np.bool
+            ret_code (np.ndarray): return code
 
         """
         self.logger.info('Simple Conditioner')
-        return np.array(np.ones(images.shape[0]), dtype = bool)
+        return np.zeros(images.shape[0])

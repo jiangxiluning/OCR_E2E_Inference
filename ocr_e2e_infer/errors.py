@@ -64,3 +64,20 @@ class ImageReadingError(Exception):
     code = 10006
     pass
 
+
+class OCRDetectionError(Exception):
+    """
+    Error occurs in the detection phrase of OCR system
+    """
+    code = 10008
+    pass
+
+
+class OCRRecognitionError(Exception):
+    """
+    Error occurs in the Recognition phrase of OCR system
+    """
+    code = 10009
+    pass
+
+

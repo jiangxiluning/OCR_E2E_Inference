@@ -16,7 +16,6 @@
 from typing import Tuple
 
 import numpy as np
-from nptyping import Array
 
 from .base import EngineBase
 
@@ -30,17 +29,17 @@ class PreProcessorBase(EngineBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images: Array[int, ...], mask: Array[bool, ...]) \
+    def do(self, images: np.ndarray, ret_codes: np.ndarray) \
             -> Tuple[np.ndarray, np.ndarray]:
         """
 
 
         Args:
-            images (Array[int, ...]): image needs to preprocessed N*H*W*C
-            mask (Array[bool, ...]): image mask, shape: (N,)
+            images (np.ndarray): image needs to preprocessed N*H*W*C
+            ret_codes (np.ndarray): image mask, shape: (N,)
 
         Returns:
-            images tuple (Tuple[np.ndarray, np.ndarray]): preprocessed image, shape: (N, H, W, C), image mask, shape: (N,)
+            images tuple (Tuple[np.ndarray, np.ndarray]): preprocessed images, shape: (N, H, W, C), image return codes, shape: (N,)
 
         """
 
@@ -52,18 +51,18 @@ class SimplePreProcessor(PreProcessorBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images: Array[int, ...], mask: Array[bool, ...]) \
-            -> Tuple[np.ndarray, np.ndarray]:
+    def do(self, images: np.ndarray, ret_codes: np.ndarray) -> \
+            Tuple[np.ndarray, np.ndarray]:
         """
         Simple Preprocessor that return same images and mask
 
         Args:
-            images (Array[int, ...]): image needs to preprocessed N*H*W*C
-            mask (Array[bool, ...]): image mask, shape: (N,)
+            images (np.ndarray): image needs to preprocessed N*H*W*C
+            ret_codes (np.ndarray): image mask, shape: (N,)
 
         Returns:
-            images tuple (Tuple[np.ndarray, np.ndarray]): preprocessed image, shape: (N, H, W, C), image mask, shape: (N,)
+            images tuple (Tuple[np.ndarray, np.ndarray]): preprocessed images, shape: (N, H, W, C), image return codes, shape: (N,)
 
         """
         self.logger.info("Simple PreProcessor.")
-        return images, mask
+        return images, ret_codes
