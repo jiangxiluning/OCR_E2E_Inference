@@ -43,6 +43,3 @@ def crop_patch(image: np.ndarray, box: np.ndarray) -> np.ndarray:
     cropped = cv2.getRectSubPix(rotated, size, center)
 
     return cropped
-
-
-

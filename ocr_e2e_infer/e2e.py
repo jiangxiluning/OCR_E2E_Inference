@@ -8,35 +8,33 @@
 # $$    $$/ $$   $$   $$/ $$       |$$ |  $$ |      $$       |$$    $$/ 
 #  $$$$$$/   $$$$$/$$$$/   $$$$$$$/ $$/   $$/       $$$$$$$$/  $$$$$$/ 
 # 
-# @Time : 2019/11/7 15:37 
+# @Time : 2019/11/14 11:50 
 # @Author : Lu Ning 
-# @File : recognizer
+# @File : e2e.py
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
-from typing import List, Tuple
-from abc import ABCMeta, abstractmethod
+import abc
+from typing import List, Dict, Any
 
 import numpy as np
-
 
 from .base import EngineBase
 
 
-class RecoginizerBase(EngineBase, metaclass=ABCMeta):
+class End2EndBase(EngineBase, metaclass=abc.ABCMeta):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    @abstractmethod
-    def do(self, image: np.ndarray, boxes: np.ndarray) -> List[Tuple[str, float]]:
+    @abc.abstractmethod
+    def do(self, image: np.ndarray) -> Dict[str, Any]:
         """
-        Recognize text from text regions
 
         Args:
             image:
-            boxes (np.ndarray): list of boxex with confidence
 
         Returns:
-            transcripts (List[Tuple[str, float]]): transcript and confidence corresponding to each region of each image
+            results (Dict[str, Any]):  results {'code': 0, 'reg': list, 'det': list}
+
         """
         raise NotImplementedError
