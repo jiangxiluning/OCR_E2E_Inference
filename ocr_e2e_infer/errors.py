@@ -81,3 +81,18 @@ class OCRRecognitionError(Exception):
     pass
 
 
+class OCRE2EError(Exception):
+    """
+    Error occurs in the E2E phrase of OCR system.
+    """
+    code = 10011
+    pass
+
+
+class InsufficentGPUMemoryError(Exception):
+    """
+    GPU Memory is insufficient.
+    """
+    code = 10012
+    pass
+

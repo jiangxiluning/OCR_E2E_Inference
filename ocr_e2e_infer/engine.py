@@ -14,10 +14,8 @@
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
 from typing import List, Dict, Any, NoReturn
-from multiprocessing import Process
 
 import numpy as np
-from nptyping import Array
 
 from .base import EngineBase
 from .detector import DetectorBase
@@ -55,7 +53,7 @@ class OCRE2ESystemBase(EngineBase):
         self.preprocessor = preprocessor
         self.postprocessor = postprocessor
 
-    def do(self, images: List[Array[int, ...]]) -> List[Dict[str, Any]]:
+    def do(self, image: np.ndarray) -> Dict[str, Any]:
         """
 
         Args:
@@ -66,25 +64,6 @@ class OCRE2ESystemBase(EngineBase):
             len(images) == len(reuslts)
 
         """
-
-        images = np.concatenate(images)
-        self.logger.debug("Image's shape: {} {} {} {}".format(images.shape[0],
-                                                              images.shape[1],
-                                                              images.shape[2],
-                                                              images.shape[3]))
-
-
         #images, mask = self.conditioner.do()
 
         raise NotImplementedError
-
-    def run_detector(self) -> Process:
-        """
-
-
-        Returns:
-
-        """
-
-        p = Process(self.detector.do())
-

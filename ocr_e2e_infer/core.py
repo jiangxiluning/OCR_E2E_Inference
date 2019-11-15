@@ -61,14 +61,18 @@ class Core(EngineBase):
 
         """
         if self.e2e:
-            return self.e2e_model.do(image)
+            try:
+                return self.e2e_model.do(image)
+            except errors.OCRE2EError as e:
+                ret = {'det': None, 'reg': None, 'code': e.code}
+                self.logger.exception(e.args)
         else:
-            ret = {}
             try:
                 det_result = self.detector.do(image)
                 reg_result = self.recognizer.do(image, det_result)
-                ret = {'det'}
+                ret = {'det': det_result, 'reg': reg_result, 'code': 0}
             except errors.OCRDetectionError as e:
+                ret = {'det': None, 'reg': None, 'code': e.code}
+                self.logger.exception(e.args)
 
-
-            return reg_result
+        return ret
