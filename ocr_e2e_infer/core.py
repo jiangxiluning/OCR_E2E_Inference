@@ -26,8 +26,8 @@ import numpy as np
 
 class Core(EngineBase):
 
-    def __init__(self, detector: DetectorBase,
-                 recognizer: RecoginizerBase,
+    def __init__(self, detector: DetectorBase = None,
+                 recognizer: RecoginizerBase = None,
                  e2e_model: End2EndBase = None,
                  e2e: bool = False,
                  *args, **kwargs):
@@ -46,6 +46,8 @@ class Core(EngineBase):
             assert (e2e_model is not None)
             self.e2e_model = e2e_model
         else:
+            assert detector
+            assert recognizer
             assert isinstance(detector, DetectorBase)
             assert isinstance(recognizer, RecoginizerBase)
             self.detector = detector
@@ -61,18 +63,10 @@ class Core(EngineBase):
 
         """
         if self.e2e:
-            try:
-                return self.e2e_model.do(image)
-            except errors.OCRE2EError as e:
-                ret = {'det': None, 'reg': None, 'code': e.code}
-                self.logger.exception(e.args)
+            return self.e2e_model.do(image)
         else:
-            try:
-                det_result = self.detector.do(image)
-                reg_result = self.recognizer.do(image, det_result)
-                ret = {'det': det_result, 'reg': reg_result, 'code': 0}
-            except errors.OCRDetectionError as e:
-                ret = {'det': None, 'reg': None, 'code': e.code}
-                self.logger.exception(e.args)
+            det_result = self.detector.do(image)
+            reg_result = self.recognizer.do(image, det_result)
+            return {'det': det_result, 'reg': reg_result, 'code': 0}
 
-        return ret
+

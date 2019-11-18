@@ -29,17 +29,16 @@ class PreProcessorBase(EngineBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images: np.ndarray, ret_codes: np.ndarray) \
-            -> Tuple[np.ndarray, np.ndarray]:
+    def do(self, image: np.ndarray) \
+            -> np.ndarray:
         """
 
 
         Args:
-            images (np.ndarray): image needs to preprocessed N*H*W*C
-            ret_codes (np.ndarray): image mask, shape: (N,)
+            image (np.ndarray): image needs to preprocessed H*W*C
 
         Returns:
-            images tuple (Tuple[np.ndarray, np.ndarray]): preprocessed images, shape: (N, H, W, C), image return codes, shape: (N,)
+            image (np.ndarray): preprocessed image
 
         """
 
@@ -51,18 +50,17 @@ class SimplePreProcessor(PreProcessorBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images: np.ndarray, ret_codes: np.ndarray) -> \
-            Tuple[np.ndarray, np.ndarray]:
+    def do(self, image: np.ndarray) -> \
+            np.ndarray:
         """
         Simple Preprocessor that return same images and mask
 
         Args:
-            images (np.ndarray): image needs to preprocessed N*H*W*C
-            ret_codes (np.ndarray): image mask, shape: (N,)
+            image (np.ndarray): image needs to preprocessed H*W*C
 
         Returns:
-            images tuple (Tuple[np.ndarray, np.ndarray]): preprocessed images, shape: (N, H, W, C), image return codes, shape: (N,)
+            image (np.ndarray): preprocessed image
 
         """
         self.logger.info("Simple PreProcessor.")
-        return images, ret_codes
+        return image

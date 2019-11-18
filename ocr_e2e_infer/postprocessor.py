@@ -26,21 +26,19 @@ class PostProcessorBase(EngineBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, images: np.ndarray,
-           ret_codes: np.ndarray,
-           boxes: List[np.ndarray],
-           transcripts: List[List[Tuple[str, float]]]) -> List[Dict[str, Any]]:
+    def do(self, image: np.ndarray,
+           boxes: np.ndarray,
+           transcripts: List[Tuple[str, float]]) -> Dict[str, Tuple[Any, float]]:
         """
         structurize images into keywords outputs and refine the results
         according to some rules
 
         Args:
-            transcripts (List[List[str]]): transcript anc confidence corresponding to each region of each image
-            boxes (List[np.ndarray]): list of boxex with confidence
-            images (Array[int, ...]): image needs to preprocessed N*H*W*C
-            ret_codes (Array[bool, ...]): image mask, shape: (N,)
+            transcripts (List[Tuple[str, float]]): transcript anc confidence corresponding to each region of each image
+            boxes (np.ndarray): list of boxex with confidence
+            image (np.ndarray): image needs to preprocessed N*H*W*C
 
         Returns:
-            results (List[Dict[str, Any]): structurized output
+            results (Dict[str, Tuple[Any, float]]): structurized output
         """
         raise NotImplementedError

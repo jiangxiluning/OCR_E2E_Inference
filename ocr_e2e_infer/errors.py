@@ -96,3 +96,18 @@ class InsufficentGPUMemoryError(Exception):
     code = 10012
     pass
 
+
+class ImagePreprocessingError(Exception):
+    """
+    Error occurs in pre-processing, e.g. rotation, scaling, denosing
+    """
+    code = 10013
+    pass
+
+
+class ImagePostprocessingError(Exception):
+    """
+    Error occurs in post-processing
+    """
+    code = 10014
+    pass
