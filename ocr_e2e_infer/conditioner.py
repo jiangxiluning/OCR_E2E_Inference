@@ -32,14 +32,17 @@ class ConditionerBase(EngineBase):
         """
         super().__init__(*args, **kwargs)
 
-    def do(self, images: np.ndarray) -> np.ndarray:
+    def do(self, image: np.ndarray):
         """
 
         Args:
-            images (np.ndarray): numpy ndarray of images, N * H * W * C
+            images (np.ndarray): image array
 
-        Returns:
-            ret_code (np.ndarray): return code
+        Raises：
+            ImageQualityError
+            ImageResolutionError
+            ImageDistortionError
+            ImageCategoryError
 
         """
         raise NotImplementedError

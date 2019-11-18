@@ -23,6 +23,8 @@ from .conditioner import ConditionerBase
 from .preprocessor import PreProcessorBase
 from .postprocessor import PostProcessorBase
 from .recognizer import RecoginizerBase
+from . import utils
+from . import errors
 
 
 class OCRE2ESystemBase(EngineBase):
@@ -53,17 +55,37 @@ class OCRE2ESystemBase(EngineBase):
         self.preprocessor = preprocessor
         self.postprocessor = postprocessor
 
-    def do(self, image: np.ndarray) -> Dict[str, Any]:
+    def do(self, image: bytes) -> Dict[str, Any]:
         """
 
         Args:
-            images (List[Array[int, ...]]): list of images,
+            image (bytes): base64 representation of image,
 
         Returns:
             results (List[Dict[str, Any]): structurized output,
             len(images) == len(reuslts)
 
         """
+        ret = {'code': 0, 'result': ''}
+        try:
+            img = utils.read_image_from_base64(image)
+        except errors.ImageReadingError as e:
+            self.logger.exception(e.args)
+            ret['code'] = e.code
+            return ret
+
+        try:
+            self.conditioner.do(img)
+        except (errors.ImageQualityError,
+                errors.ImageCategoryError,
+                errors.ImageDistortionError,
+                errors.ImageResolutionError) as e:
+            self.logger.exception(e.args)
+            self.logger.exception(e.args)
+            ret['code'] = e.code
+            return ret
+
+
         #images, mask = self.conditioner.do()
 
         raise NotImplementedError
