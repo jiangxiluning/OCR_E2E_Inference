@@ -53,13 +53,14 @@ class Core(EngineBase):
             self.detector = detector
             self.recognizer = recognizer
 
-    def do(self, image: np.ndarray) -> Dict[str, Any]:
+    def do(self, image: np.ndarray, **kwargs) -> Dict[str, Any]:
         """
 
         Args:
-            image:
+            image (np.ndarray): image
 
         Returns:
+            ocr results
 
         """
         if self.e2e:

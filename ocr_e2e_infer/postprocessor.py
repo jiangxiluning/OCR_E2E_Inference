@@ -14,21 +14,23 @@
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
 from typing import List, Dict, Tuple, Any
+import abc
 
-from nptyping import Array
 import numpy as np
 
 from .base import EngineBase
 
 
-class PostProcessorBase(EngineBase):
+class PostProcessorBase(EngineBase, metaclass=abc.ABCMeta):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    @abc.abstractmethod
     def do(self, image: np.ndarray,
            boxes: np.ndarray,
-           transcripts: List[Tuple[str, float]]) -> Dict[str, Tuple[Any, float]]:
+           transcripts: List[Tuple[str, float]],
+           **kwargs) -> Dict[str, Tuple[Any, float]]:
         """
         structurize images into keywords outputs and refine the results
         according to some rules

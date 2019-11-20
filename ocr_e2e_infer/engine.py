@@ -54,7 +54,7 @@ class OCRE2ESystemBase(EngineBase):
         self.preprocessor = preprocessor
         self.postprocessor = postprocessor
 
-    def do(self, image: bytes) -> Dict[str, Any]:
+    def do(self, image: bytes, **kwargs) -> Dict[str, Any]:
         """
 
         Args:
@@ -66,7 +66,6 @@ class OCRE2ESystemBase(EngineBase):
 
         """
         ret = {'code': 0, 'result': ''}
-
 
         try:
             img = utils.read_image_from_base64(image)

@@ -13,14 +13,14 @@
 # @File : preprocessor.py
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
-from typing import Tuple
+import abc
 
 import numpy as np
 
 from .base import EngineBase
 
 
-class PreProcessorBase(EngineBase):
+class PreProcessorBase(EngineBase, metaclass=abc.ABCMeta):
     '''
     do some pre-processing here, such as rotate, scale and other image
     transformations.
@@ -29,7 +29,8 @@ class PreProcessorBase(EngineBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, image: np.ndarray) \
+    @abc.abstractmethod
+    def do(self, image: np.ndarray, **kwargs) \
             -> np.ndarray:
         """
 
@@ -50,7 +51,7 @@ class SimplePreProcessor(PreProcessorBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def do(self, image: np.ndarray) -> \
+    def do(self, image: np.ndarray, **kwargs) -> \
             np.ndarray:
         """
         Simple Preprocessor that return same images and mask

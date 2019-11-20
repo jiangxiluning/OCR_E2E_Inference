@@ -3,3 +3,5 @@
 # @File : __init__.py
 # @Email: jiangxiluning@gmail.com
 # @Description: say something informative
+
+__version__ = '0.1.0'
